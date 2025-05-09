@@ -1,15 +1,26 @@
 package datastructures.stacks;
 
-import datastructures.interfaces.Queue;
-import datastructures.lists.CustomLinkedList;
+import java.util.LinkedList;
 
-public class CustomStack<T> implements Queue<T> {
-    private CustomLinkedList<T> list;
+public class CustomStack<T> {
+    private LinkedList<T> list = new LinkedList<>();
 
-    public CustomStack() {
-        list = new CustomLinkedList<>();
+    public void push(T t) {
+        if (t == null) throw new NullPointerException();
+        list.addFirst(t);
     }
 
-    // TODO: Override and fill the methods to complete the data structure
+    public T pop() {
+        if (list.isEmpty()) throw new java.util.NoSuchElementException();
+        return list.removeFirst();
+    }
 
+    public T peek() {
+        if (list.isEmpty()) throw new java.util.NoSuchElementException();
+        return list.getFirst();
+    }
+
+    public boolean isEmpty() { return list.isEmpty(); }
+
+    public int size() { return list.size(); }
 }

@@ -7,22 +7,32 @@ public class Transaction {
     private String bookTitle;
     private String memberName;
     private Date transactionDate;
-    private String type; // "BORROW" or "RETURN"
+    private String type;
 
-    public Transaction(String transactionId, String bookName, String memberName, String type) {
+    public Transaction(String transactionId, String bookTitle, String memberName, String type) {
+        if (transactionId == null || bookTitle == null || memberName == null || type == null) {
+            throw new IllegalArgumentException("Transaction details cannot be null");
+        }
+        if (!type.equals("BORROW") && !type.equals("RETURN")) {
+            throw new IllegalArgumentException("Transaction type must be either 'BORROW' or 'RETURN'");
+        }
         this.transactionId = transactionId;
-        this.bookTitle = bookName;
+        this.bookTitle = bookTitle;
         this.memberName = memberName;
         this.transactionDate = new Date();
         this.type = type;
     }
-
-    // Getters
     public String getTransactionId() { return transactionId; }
     public String getBookTitle() { return bookTitle; }
     public String getMember() { return memberName; }
     public Date getTransactionDate() { return transactionDate; }
     public String getType() { return type; }
+    public boolean isBorrowTransaction() {
+        return "BORROW".equals(type);
+    }
+    public boolean isReturnTransaction() {
+        return "RETURN".equals(type);
+    }
 
     @Override
     public String toString() {
